@@ -1,19 +1,20 @@
-import mysql from 'mysql2/pomisse';
+import mysql2 from 'mysql2/promise'
 
-export default function obterConexao(){
-
+export default async function obterConexao(){
     if(global.poolConexoes){
         return await global.poolConexoes.getConnection();
     }
     else{
-         const poolConexoes = await mysql.createpool({
-            host: 'localhost',
-            user: '10442428260',
-            password: '10442428260',
-            database: 'lanchonete'
-        });
+        const poolConexoes = await mysql2.createPool({
+            host: process.env.DB_HOST,
+            user: process.env.DB_USUARIO,
+            password: process.env.DB_SENHA,
+            database: process.env.DB_BASE,
+            waitForConnections: true,
+            connectionLimit: 10,
+            queueLimit: 0
+        })
         global.poolConexoes = poolConexoes;
-        return await poolConexoes.getConnection();
+        return await poolConexoes.getConnection()
     }
-
 }

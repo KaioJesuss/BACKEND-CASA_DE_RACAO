@@ -1,81 +1,71 @@
-export default class Produto{
-    #codigo
-    #nome 
-    #tipo
-    #sabor
-    #preco
-    #imagem
+import ProdutoDB from "../DB/produtoDb.js"
 
-    constructor(codigo, nome, tipo, sabor, preco, imagem){
+export default class Produto {
+
+    #codigo
+    #categoria
+    #marca
+    #produto
+    #peso
+    #preco
+    #estoque
+
+    constructor(codigo, categoria, marca, produto, peso, preco, estoque) {
         this.#codigo = codigo
-        this.#nome = nome
-        this.#tipo = tipo
-        this.#sabor = sabor
+        this.#categoria = categoria
+        this.#marca = marca
+        this.#produto = produto
+        this.#peso = peso
         this.#preco = preco
-        this.#imagem = imagem
+        this.#estoque = estoque
     }
 
-    get codigo(){
+    get codigo() {
         return this.#codigo
     }
 
-    get nome(){
-        return this.#nome
+    get categoria() {
+        return this.#categoria
     }
 
-    get tipo(){
-        return this.#tipo
+    get marca() {
+        return this.#marca
     }
 
-    get sabor(){
-        return this.#sabor
+    get produto() {
+        return this.#produto
     }
 
-    get preco(){
+    get peso() {
+        return this.#peso
+    }
+
+    get preco() {
         return this.#preco
     }
-    
-    get imagem(){
-        return this.#imagem
+
+    get estoque() {
+        return this.#estoque
     }
 
-    set codigo(codigo)  {
-        this.#codigo = codigo
-    }
-
-    set nome(nome)  {
-        this.#codigo = nome
-    }
-
-    set tipo(tipo)  {
-        this.#tipo = tipo
-    }
-
-    set sabor(sabor)  {
-        this.#sabor = sabor
-    }
-
-    set preco(preco)  {
-        this.#preco = preco
-    }
-
-    set imagem(imagem)  {
-        this.#imagem = imagem
-    }
-
-    toJSON(){
-        return{
+    toJSON() {
+        return {
             codigo: this.#codigo,
-            nome: this.#nome,
-            tipo: this.#tipo, 
-            sabor: this.#sabor,
+            categoria: this.#categoria,
+            marca: this.#marca,
+            produto: this.#produto,
+            peso: this.#peso,
             preco: this.#preco,
-            imagem: this.#imagem
+            estoque: this.#estoque
         }
     }
 
-    async gravar(){}
-    async alterar(){}
-    async excluir(){}
-    async consultar(){}
+    async gravar() {}
+    async alterar() {}
+    async excluir() {}
+
+    async consultar() {
+        const produtoDB = new ProdutoDB()
+        return await produtoDB.consultar()
+    }
 }

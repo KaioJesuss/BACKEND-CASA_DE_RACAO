@@ -1,13 +1,19 @@
-import express from 'express';
-import dotenv from 'dotenv';
+import express from "express"
+import dotenv from 'dotenv'
 
-dotenv.config();
+import rotaProduto from './Routes/rotaProduto.js'
+import rotaDF from "./Routes/rotaDF.js"
 
-const porta = 3000;
-const host = '0.0.0.0';
-const app = express();
+dotenv.config()
 
-app.listen(porta, host, () =>{
-    console.log('Servidor rodando em http://${host}:${porta}');
-});
+const porta = 3000
+const host = '0.0.0.0'
+const app = express()
 
+app.use(express.json())
+app.use('/produto', rotaProduto)
+app.use('/webhook', rotaDF)
+
+app.listen(porta, host, () => {
+    console.log(`Servidor rodando em http://${host}:${porta}`)
+})
